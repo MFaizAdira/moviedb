@@ -1,16 +1,22 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Factories;
+
 
 use App\Models\Category;
 use Illuminate\Support\Str;
-use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CategorySeeder extends Seeder
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
+ */
+class MovieFactory extends Factory
 {
     /**
-     * Run the database seeds.
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
      */
     public function definition(): array
 {
@@ -28,4 +34,5 @@ class CategorySeeder extends Seeder
         'updated_at' => now(),
     ];
 }
+
 }
