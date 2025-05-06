@@ -1,23 +1,31 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Seeders;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
- */
-class MovieFactory extends Factory
+class CategorySeeder extends Seeder
 {
     /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
+     * Run the database seeds.
      */
     public function definition(): array
-    {
-        return [
-            //
-        ];
-    }
+{
+    $title = fake()->sentence(rand(3, 6));
+    $slug = Str::slug($title);
+    return [
+        'title' => $title,
+        'slug' => $slug,
+        'synopsis' => fake()->paragraph(rand(5, 10)),
+        'category_id' => Category::inRandomOrder()->first(),
+        'year' => fake()->year(),
+        'actors' => fake()->name() . ', ' . fake('id')->name(),
+        'cover_image' => 'https://picsum.photos/seed/' . Str::random(10) . '/480/640',
+        'created_at' => now(),
+        'updated_at' => now(),
+    ];
+}
 }
