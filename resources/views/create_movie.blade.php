@@ -1,65 +1,62 @@
+{{-- filepath: resources/views/movies/create.blade.php --}}
 @extends('layouts.template')
 
 @section('content')
-<div class="container">
-    <h2>Tambah Movie</h2>
-
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul class="mb-0">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
+<div class="container pt-5 mt-5 mb-5">
+    <h1 class="mb-4">Tambah Film</h1>
     <form action="{{ route('movies.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-
         <div class="mb-3">
-            <label for="title" class="form-label">Judul</label>
-            <input type="text" name="title" class="form-control" required value="{{ old('title') }}">
+            <label>Judul</label>
+            <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
+            @error('title')
+                <div class="invalid-feedback ">{{ $message }}</div>
+            @enderror
         </div>
-
         <div class="mb-3">
-            <label for="synopsis" class="form-label">Sinopsis</label>
-            <textarea name="synopsis" class="form-control">{{ old('synopsis') }}</textarea>
+            <label>Kategori</label>
+            <select name="category_id" class="form-control @error('category_id') is-invalid @enderror">
+                <option value="">-- Pilih Kategori --</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                        {{ $category->category_name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('category_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
         <div class="mb-3">
-    <label for="category_id" class="form-label">Kategori</label>
-    <select name="category_id" class="form-control" required>
-        <option value="">-- Pilih Kategori --</option>
-        @foreach ($categories as $category)
-            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                {{ $category->category_name }}
-            </option>
-        @endforeach
-    </select>
-</div>
-
-
-        <div class="mb-3">
-            <label for="year" class="form-label">Tahun</label>
-            <input type="number" name="year" class="form-control" required value="{{ old('year') }}">
+            <label>Tahun</label>
+            <input type="text" name="year" class="form-control @error('year') is-invalid @enderror" value="{{ old('year') }}">
+            @error('year')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
         <div class="mb-3">
-            <label for="actors" class="form-label">Aktor</label>
-            <input type="text" name="actors" class="form-control" value="{{ old('actors') }}">
+            <label>Sinopsis</label>
+            <textarea name="synopsis" class="form-control @error('synopsis') is-invalid @enderror">{{ old('synopsis') }}</textarea>
+            @error('synopsis')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
         <div class="mb-3">
-            <label for="cover_image" class="form-label">Gambar Poster</label>
-            <input type="file" name="cover_image" class="form-control">
+            <label>Aktor</label>
+            <input type="text" name="actors" class="form-control @error('actors') is-invalid @enderror" value="{{ old('actors') }}">
+            @error('actors')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
-
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <div class="mb-3">
+            <label>Cover Image</label>
+            <input type="file" name="cover_image" class="form-control @error('cover_image') is-invalid @enderror">
+            @error('cover_image')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <button class="btn btn-success">Simpan</button>
+        <a href="{{ route('layouts.datamovie') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

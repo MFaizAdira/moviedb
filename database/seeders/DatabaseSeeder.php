@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,]);
 
-        // User::factory(10)->create();
+         User::factory(3)->create();
 
-        Movie :: factory(50)->create();
+       // Movie :: factory(50)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',

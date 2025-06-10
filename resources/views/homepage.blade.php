@@ -1,6 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
+
     <h1>Latest Movies</h1>
 
     @if (session('success'))
