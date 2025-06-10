@@ -49,6 +49,7 @@
 
         <button class="btn btn-primary">Update</button>
         <a href="{{ route('movies.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('create_movie') }}" class="btn btn-success">Input Data Baru</a>
     </form>
 </div>
 @endsection

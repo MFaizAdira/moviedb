@@ -27,9 +27,10 @@ class MovieController extends Controller
         return view('homepage', compact('movies', 'keyword'));
     }
 
-    public function detail($id, $slug)
+    public function detail($id)
     {
         $movie = Movie::findOrFail($id);
+        // $movie = Movie::findOrFail($slug);
         return view('movie.detailmovie', compact('movie'));
     }
 
@@ -80,7 +81,7 @@ public function edit($id)
 {
     $movie = Movie::findOrFail($id);
     $categories = \App\Models\Category::all();
-    return view('edit_movie', compact('movie', 'categories'));
+    return view('movie.edit_movie', compact('movie', 'categories'));
 }
 
 public function update(Request $request, $id)

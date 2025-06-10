@@ -4,12 +4,13 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MovieController;
+use App\Http\Middleware\RoleAdmin;
 
 // Halaman utama
 Route::get('/', [MovieController::class, 'homePage']);
 
 // Detail film
-Route::get('movie/{id}/{slug}', [MovieController::class, 'detail']);
+Route::get('movie/{id}', [MovieController::class, 'detail']);
 
 // List semua movie (opsional, untuk datatable)
 Route::get('/movie', [MovieController::class, 'index'])->name('movies.index');
@@ -20,7 +21,7 @@ Route::post('/movies', [MovieController::class, 'store'])->name('movies.store')-
 
 // CRUD Movie
 Route::get('/movie/{id}', [MovieController::class, 'show'])->name('movies.show');
-Route::get('/movie/{id}/edit', [MovieController::class, 'edit'])->name('movies.edit')->middleware('auth');
+Route::get('/movie/{id}/edit', [MovieController::class, 'edit'])->name('movies.edit')->middleware('auth', RoleAdmin::class);
 Route::put('/movie/{id}', [MovieController::class, 'update'])->name('movies.update')->middleware('auth');
 Route::delete('/movie/{id}', [MovieController::class, 'destroy'])->name('movies.destroy')->middleware('auth');
 
